@@ -1,0 +1,1752 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sistem Upload Surat</title>
+  <style>
+    :root {
+      --bg: #060607;
+      --bg-soft: #111114;
+      --card: #151518;
+      --card-2: #1f1f24;
+      --text: #f8fafc;
+      --muted: #c7cbd1;
+      --line: #34343a;
+      --brand: #ef4444;
+      --brand-dark: #991b1b;
+      --brand-soft: rgba(239, 68, 68, .16);
+      --ink: #030305;
+      --ink-2: #111114;
+      --gold: #f59e0b;
+      --success: #22c55e;
+      --danger: #ef4444;
+      --warning: #f59e0b;
+      --accent: #38bdf8;
+      --accent-soft: rgba(56, 189, 248, .16);
+      --shadow: 0 24px 70px rgba(0, 0, 0, .50);
+      --shadow-soft: 0 16px 42px rgba(0, 0, 0, .32);
+      --radius: 22px;
+      --input-bg: #0f0f12;
+      --input-text: #f8fafc;
+      --input-border: #3f3f46;
+      --table-head: linear-gradient(135deg, #0b0b0f, #7f1d1d);
+      --table-row: #151518;
+      --table-row-alt: #19191d;
+      --pill-bg: #1f1f24;
+      --pill-text: #f8fafc;
+    }
+    body[data-theme="kpu-red"] {
+      --bg: #120606;
+      --bg-soft: #1b0b0b;
+      --card: #211111;
+      --card-2: #2a1515;
+      --text: #fff7f7;
+      --muted: #f2caca;
+      --line: #4b2424;
+      --brand: #dc2626;
+      --brand-dark: #7f1d1d;
+      --brand-soft: rgba(220, 38, 38, .22);
+      --input-bg: #170909;
+      --input-text: #fff7f7;
+      --input-border: #633030;
+      --table-head: linear-gradient(135deg, #1b0b0b, #991b1b);
+      --table-row: #211111;
+      --table-row-alt: #281414;
+      --pill-bg: #2a1515;
+      --pill-text: #fff7f7;
+    }
+    body[data-theme="midnight"] {
+      --bg: #030712;
+      --bg-soft: #0f172a;
+      --card: #111827;
+      --card-2: #1f2937;
+      --text: #f8fafc;
+      --muted: #cbd5e1;
+      --line: #334155;
+      --brand: #f43f5e;
+      --brand-dark: #9f1239;
+      --brand-soft: rgba(244, 63, 94, .18);
+      --input-bg: #0b1220;
+      --input-text: #f8fafc;
+      --input-border: #334155;
+      --table-head: linear-gradient(135deg, #020617, #9f1239);
+      --table-row: #111827;
+      --table-row-alt: #162033;
+      --pill-bg: #1f2937;
+      --pill-text: #f8fafc;
+    }
+
+    body[data-theme="forest"] { --bg:#03140d; --bg-soft:#052016; --card:#0b2418; --card-2:#123524; --text:#ecfdf5; --muted:#b7d8c8; --line:#24543a; --brand:#22c55e; --brand-dark:#15803d; --brand-soft:rgba(34,197,94,.18); --input-bg:#061a11; --input-text:#ecfdf5; --input-border:#2e6b49; --table-head:linear-gradient(135deg,#052e16,#15803d); --table-row:#0b2418; --table-row-alt:#0e2c1e; --pill-bg:#123524; --pill-text:#ecfdf5; }
+    body[data-theme="ocean"] { --bg:#04111d; --bg-soft:#082033; --card:#0b2538; --card-2:#10354f; --text:#eff6ff; --muted:#bfd7ee; --line:#24506f; --brand:#0ea5e9; --brand-dark:#0369a1; --brand-soft:rgba(14,165,233,.18); --input-bg:#071827; --input-text:#eff6ff; --input-border:#2a5e82; --table-head:linear-gradient(135deg,#082f49,#0369a1); --table-row:#0b2538; --table-row-alt:#102d44; --pill-bg:#10354f; --pill-text:#eff6ff; }
+    body[data-theme="purple"] { --bg:#12091f; --bg-soft:#1e1230; --card:#25163a; --card-2:#332050; --text:#faf5ff; --muted:#ddc9f4; --line:#50366f; --brand:#a855f7; --brand-dark:#7e22ce; --brand-soft:rgba(168,85,247,.20); --input-bg:#1a1029; --input-text:#faf5ff; --input-border:#604080; --table-head:linear-gradient(135deg,#2e1065,#7e22ce); --table-row:#25163a; --table-row-alt:#2b1945; --pill-bg:#332050; --pill-text:#faf5ff; }
+    body[data-theme="amber"] { --bg:#171006; --bg-soft:#231806; --card:#2d210b; --card-2:#3b2b0d; --text:#fffbeb; --muted:#ead7a3; --line:#725318; --brand:#f59e0b; --brand-dark:#b45309; --brand-soft:rgba(245,158,11,.20); --input-bg:#211704; --input-text:#fffbeb; --input-border:#7a591a; --table-head:linear-gradient(135deg,#451a03,#b45309); --table-row:#2d210b; --table-row-alt:#35270d; --pill-bg:#3b2b0d; --pill-text:#fffbeb; }
+    body[data-theme="slate"] { --bg:#0f172a; --bg-soft:#111827; --card:#1f2937; --card-2:#273449; --text:#f8fafc; --muted:#cbd5e1; --line:#475569; --brand:#64748b; --brand-dark:#334155; --brand-soft:rgba(100,116,139,.22); --input-bg:#111827; --input-text:#f8fafc; --input-border:#475569; --table-head:linear-gradient(135deg,#020617,#334155); --table-row:#1f2937; --table-row-alt:#243044; --pill-bg:#273449; --pill-text:#f8fafc; }
+    body[data-theme="rose"] { --bg:#180912; --bg-soft:#270f1d; --card:#301426; --card-2:#421b34; --text:#fff1f2; --muted:#f5c2cf; --line:#71324d; --brand:#fb7185; --brand-dark:#be123c; --brand-soft:rgba(251,113,133,.20); --input-bg:#220d19; --input-text:#fff1f2; --input-border:#823a58; --table-head:linear-gradient(135deg,#4c0519,#be123c); --table-row:#301426; --table-row-alt:#38172c; --pill-bg:#421b34; --pill-text:#fff1f2; }
+    body[data-theme="teal"] { --bg:#031716; --bg-soft:#092524; --card:#0f3432; --card-2:#144543; --text:#f0fdfa; --muted:#b6e6df; --line:#25615d; --brand:#14b8a6; --brand-dark:#0f766e; --brand-soft:rgba(20,184,166,.20); --input-bg:#08201f; --input-text:#f0fdfa; --input-border:#2d756f; --table-head:linear-gradient(135deg,#042f2e,#0f766e); --table-row:#0f3432; --table-row-alt:#123c39; --pill-bg:#144543; --pill-text:#f0fdfa; }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(239, 68, 68, .16), transparent 32%),
+        radial-gradient(circle at bottom right, rgba(245, 158, 11, .10), transparent 34%),
+        linear-gradient(135deg, var(--bg) 0%, var(--bg-soft) 48%, #070707 100%);
+      color: var(--text);
+    }
+    a { color: #fca5a5; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .hidden { display: none !important; }
+    .brand-mark { display: flex; align-items: center; gap: 12px; }
+    .brand-logo { width: 46px; height: 46px; flex: 0 0 auto; object-fit: contain; background: #fff; border-radius: 14px; padding: 6px; box-shadow: 0 12px 26px rgba(0,0,0,.18); }
+    .brand-title { display: flex; flex-direction: column; gap: 2px; line-height: 1.15; }
+    .brand-title strong { font-size: 18px; letter-spacing: -.02em; }
+    .brand-title span { font-size: 12px; color: #fecaca; font-weight: 600; }
+    .auth-brand { justify-content: center; text-align: left; margin-bottom: 18px; }
+    .auth-brand .brand-logo { width: 58px; height: 58px; border-radius: 18px; }
+    .auth-brand .brand-title strong { font-size: 20px; }
+    .auth-brand .brand-title span { color: #fecaca; }
+    .kpu-ribbon { height: 5px; border-radius: 999px; background: linear-gradient(90deg, var(--ink), var(--brand), var(--gold)); margin: 12px 0 18px; }
+    .hero-card { background: linear-gradient(135deg, rgba(17,17,17,.95), rgba(153,27,27,.92)), radial-gradient(circle at top right, rgba(245,158,11,.32), transparent 30%); color: #fff; border: 0; overflow: hidden; position: relative; }
+    .hero-card:after { content: ''; position: absolute; right: -60px; bottom: -80px; width: 220px; height: 220px; border-radius: 50%; background: rgba(255,255,255,.08); }
+    .hero-card .muted, .hero-card .mini { color: #fee2e2; }
+    .toolbar-note { display: inline-flex; align-items: center; gap: 8px; padding: 8px 12px; border-radius: 999px; background: var(--accent-soft); color: #bae6fd; border: 1px solid rgba(14, 165, 233, .35); font-size: 12px; font-weight: 700; }
+    .input-hint { padding: 10px 12px; border: 1px dashed rgba(14, 165, 233, .45); background: var(--accent-soft); border-radius: 14px; color: var(--muted); font-size: 12px; }
+
+    .app-shell {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      min-height: 100vh;
+    }
+    .sidebar {
+      background:
+        linear-gradient(180deg, rgba(8,8,10,.98), rgba(24,24,27,.96) 48%, rgba(127,29,29,.96)),
+        radial-gradient(circle at top, rgba(220,38,38,.28), transparent 36%);
+      color: #fff;
+      padding: 24px;
+      border-right: 1px solid rgba(255,255,255,.08);
+    }
+    .brand {
+      font-size: 22px;
+      font-weight: 800;
+      margin-bottom: 8px;
+      letter-spacing: -.03em;
+    }
+    .sidebar small { color: #cbd5e1; }
+    .nav {
+      margin-top: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .nav button {
+      border: 0;
+      background: rgba(255,255,255,.07);
+      color: #fff;
+      padding: 12px 14px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.08);
+      text-align: left;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    .nav button.active,
+    .nav button:hover {
+      background: linear-gradient(135deg, var(--brand), var(--brand-dark));
+      box-shadow: 0 12px 26px rgba(220, 38, 38, .28);
+    }
+    .sidebar-footer {
+      margin-top: 24px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(255,255,255,.12);
+      font-size: 13px;
+      color: #cbd5e1;
+    }
+    .main {
+      padding: 24px;
+    }
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+    .topbar h1 { margin: 0; font-size: 28px; }
+    .user-badge {
+      background: var(--card);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+      border-radius: 16px;
+      padding: 12px 16px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 18px;
+    }
+    .card {
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-soft);
+      padding: 20px;
+      border: 1px solid rgba(148, 163, 184, .42);
+      backdrop-filter: blur(10px);
+    }
+    .col-12 { grid-column: span 12; }
+    .col-8 { grid-column: span 8; }
+    .col-6 { grid-column: span 6; }
+    .col-4 { grid-column: span 4; }
+    .col-3 { grid-column: span 3; }
+    .section-title {
+      margin: 0 0 14px;
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    .stat {
+      background: linear-gradient(135deg, var(--card-2), var(--card));
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 16px;
+    }
+    .stat .label { color: var(--muted); font-size: 13px; }
+    .stat .value { font-size: 28px; font-weight: 700; margin-top: 8px; }
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+    }
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .field.full { grid-column: 1 / -1; }
+    label { font-size: 13px; color: var(--muted); font-weight: 600; }
+    input, select, textarea {
+      width: 100%;
+      padding: 11px 12px;
+      border-radius: 12px;
+      border: 1px solid var(--input-border);
+      background: var(--input-bg);
+      color: var(--input-text);
+      font-size: 14px;
+    }
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 4px var(--accent-soft);
+    }
+    .actions { display: flex; gap: 10px; flex-wrap: wrap; }
+    .btn {
+      border: 0;
+      border-radius: 12px;
+      padding: 11px 16px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .btn-primary { background: linear-gradient(135deg, var(--brand), var(--brand-dark)); color: #fff; box-shadow: 0 12px 24px rgba(220,38,38,.22); }
+    .btn-primary:hover { filter: brightness(.96); transform: translateY(-1px); }
+    .btn-secondary { background: var(--card-2); color: var(--text); border: 1px solid var(--line); }
+    .btn-danger { background: var(--danger); color: #fff; }
+    .btn-warning { background: var(--warning); color: #fff; }
+    .btn-success { background: var(--success); color: #fff; }
+    .table-wrap { overflow: auto; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 980px;
+    }
+    th, td {
+      padding: 10px 12px;
+      border: 1px solid var(--line);
+      text-align: center;
+      vertical-align: middle;
+      white-space: normal;
+      word-break: break-word;
+      overflow-wrap: anywhere;
+      font-size: 14px;
+    }
+    th {
+      position: sticky;
+      top: 0;
+      background: var(--table-head);
+      color: #fff;
+      z-index: 1;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 5px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      background: rgba(239, 68, 68, .18);
+      color: #fecaca;
+      border: 1px solid rgba(239, 68, 68, .30);
+    }
+    .badge.admin { background: rgba(245, 158, 11, .18); color: #fde68a; border-color: rgba(245, 158, 11, .35); }
+    .badge.user { background: rgba(34, 197, 94, .18); color: #bbf7d0; border-color: rgba(34, 197, 94, .35); }
+    .badge.off { background: rgba(239, 68, 68, .18); color: #fecaca; border-color: rgba(239, 68, 68, .35); }
+    .auth-wrap, .reset-wrap {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 20px;
+      background:
+        radial-gradient(circle at top left, rgba(220,38,38,.18), transparent 32%),
+        linear-gradient(135deg, #020202, #450a0a 58%, #090909 58%);
+    }
+    .auth-card {
+      width: 100%;
+      max-width: 460px;
+      background: var(--card);
+      border-radius: 24px;
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+      padding: 24px;
+    }
+    .auth-card h2 { margin: 0 0 10px; }
+    .auth-card p { color: var(--muted); }
+    .muted { color: var(--muted); }
+    .notice {
+      padding: 12px 14px;
+      border-radius: 12px;
+      margin-bottom: 12px;
+      font-size: 14px;
+    }
+    .notice.info { background: rgba(14, 165, 233, .16); color: #bae6fd; border: 1px solid rgba(14,165,233,.35); }
+    .notice.success { background: rgba(34, 197, 94, .16); color: #bbf7d0; border: 1px solid rgba(34,197,94,.25); }
+    .notice.error { background: rgba(239, 68, 68, .16); color: #fecaca; border: 1px solid rgba(239,68,68,.25); }
+
+    .btn[disabled] { opacity: .72; cursor: not-allowed; transform: none !important; }
+    .btn .spinner, .notice .spinner {
+      width: 14px; height: 14px; border-radius: 999px;
+      border: 2px solid rgba(255,255,255,.45); border-top-color: #fff;
+      display: inline-block; vertical-align: -2px; margin-right: 8px;
+      animation: spin .75s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .toast-stack { position: fixed; right: 18px; top: 18px; z-index: 99999; display: grid; gap: 10px; width: min(380px, calc(100vw - 36px)); }
+    .toast { padding: 14px 16px; border-radius: 16px; box-shadow: var(--shadow); border: 1px solid var(--line); background: var(--card); color: var(--text); display: flex; align-items: flex-start; gap: 10px; animation: toastIn .18s ease-out; }
+    .toast.success { border-color: rgba(34,197,94,.45); background: linear-gradient(135deg, rgba(34,197,94,.18), var(--card)); }
+    .toast.error { border-color: rgba(239,68,68,.45); background: linear-gradient(135deg, rgba(239,68,68,.18), var(--card)); }
+    .toast.info { border-color: rgba(14,165,233,.45); background: linear-gradient(135deg, rgba(14,165,233,.18), var(--card)); }
+    .toast-icon { font-weight: 900; width: 22px; height: 22px; display: grid; place-items: center; border-radius: 999px; background: var(--brand-soft); flex: 0 0 auto; }
+    .toast-body { flex: 1; font-size: 14px; line-height: 1.35; }
+    .toast-close { border: 0; background: transparent; color: var(--muted); font-size: 18px; cursor: pointer; line-height: 1; }
+    @keyframes toastIn { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
+    .modal-backdrop { position: fixed; inset: 0; z-index: 99990; background: rgba(0,0,0,.62); display: grid; place-items: center; padding: 20px; backdrop-filter: blur(7px); }
+    .modal-card { width: min(520px, 100%); background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.025)), var(--card); color: var(--text); border: 1px solid var(--line); box-shadow: var(--shadow); border-radius: 24px; padding: 22px; }
+    .modal-card h2 { margin: 0 0 8px; font-size: 20px; }
+    .modal-card p { margin: 0 0 16px; color: var(--muted); line-height: 1.45; }
+    .select-note { font-size: 12px; color: var(--muted); margin-top: 4px; }
+
+    .pill-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .pill {
+      padding: 8px 10px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--pill-bg);
+      color: var(--pill-text);
+      font-size: 13px;
+    }
+    .mini { font-size: 12px; color: var(--muted); }
+
+    ::placeholder { color: #8f939b; opacity: 1; }
+    option { background: var(--input-bg); color: var(--input-text); }
+    tbody tr { background: var(--table-row); color: var(--text); }
+    tbody tr:nth-child(even) { background: var(--table-row-alt); }
+    td .muted, .muted { color: var(--muted); }
+    .theme-picker {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      padding: 10px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.04);
+      border-radius: 16px;
+    }
+    .theme-picker label {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .02em;
+      text-transform: uppercase;
+    }
+    .theme-picker select {
+      width: auto;
+      min-width: 160px;
+      padding: 8px 10px;
+      border-radius: 12px;
+      background: var(--input-bg);
+      color: var(--input-text);
+      border: 1px solid var(--input-border);
+    }
+    .auth-card .sidebar-footer { border-top-color: var(--line); }
+    .auth-card p, .auth-card h2, .auth-card .sidebar-footer { color: var(--text); }
+    .auth-card .sidebar-footer { color: var(--muted) !important; }
+    .user-badge { color: var(--text); }
+    .hero-card .stat { background: rgba(0,0,0,.30); border-color: rgba(255,255,255,.14); color: #fff; }
+    .hero-card .stat .label { color: #fecaca; }
+    .hero-card .stat .value { color: #fff; }
+    .card .section-title { color: var(--text); }
+    .pill b { color: #fecaca; }
+
+    .theme-switcher { display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap; padding:10px; border:1px solid var(--line); background:rgba(255,255,255,.04); border-radius:18px; }
+    .theme-switcher-head { color:var(--muted); font-size:12px; font-weight:800; letter-spacing:.02em; text-transform:uppercase; display:flex; align-items:center; gap:8px; }
+    .theme-switcher-head:before { content:'◐'; width:22px; height:22px; display:grid; place-items:center; border-radius:8px; border:1px solid var(--line); background:var(--card-2); color:var(--accent); font-size:13px; }
+    .theme-select { width:100%; min-width:170px; padding:9px 10px; border-radius:12px; border:1px solid var(--input-border); background:var(--input-bg); color:var(--input-text); font-weight:700; }
+    .custom-category-wrap { margin-top:8px; }
+    .login-shell { width:min(100%,420px); }
+    .auth-card.login-card { padding:28px; border-radius:30px; background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.025)), var(--card); position:relative; overflow:hidden; }
+    .auth-card.login-card:before { content:''; position:absolute; inset:-80px -70px auto auto; width:180px; height:180px; border-radius:50%; background:var(--brand-soft); filter:blur(2px); }
+    .login-logo-wrap { display:grid; place-items:center; margin-bottom:14px; position:relative; z-index:1; }
+    .login-logo { width:94px; height:94px; object-fit:contain; padding:12px; border-radius:28px; background:#fff; box-shadow:0 20px 44px rgba(0,0,0,.36); }
+    .login-title { text-align:center; margin:0 0 18px; position:relative; z-index:1; }
+    .login-title h1 { margin:0; font-size:22px; letter-spacing:-.03em; }
+
+    .contact-footer { margin-top:16px; display:grid; gap:8px; }
+    .contact-btn { display:flex; align-items:center; justify-content:center; gap:8px; width:100%; padding:10px 12px; border-radius:12px; background:rgba(255,255,255,.07); color:#fff; border:1px solid rgba(255,255,255,.12); font-weight:700; text-decoration:none; }
+    .contact-btn:hover { text-decoration:none; background:rgba(255,255,255,.12); }
+    .copyright { margin-top:14px; padding-top:12px; border-top:1px solid rgba(255,255,255,.12); font-size:12px; line-height:1.35; color:#e2e8f0; }
+
+    .wa-icon { width:22px; height:22px; flex:0 0 auto; display:inline-block; }
+    .contact-btn.whatsapp { background:rgba(37,211,102,.14); border-color:rgba(37,211,102,.42); }
+    .contact-btn.whatsapp:hover { background:rgba(37,211,102,.22); }
+    .login-note { margin-top:12px; padding:11px 12px; border-radius:14px; border:1px solid rgba(14,165,233,.35); background:rgba(14,165,233,.12); color:#bae6fd; font-size:12px; line-height:1.45; }
+    .table-page-card { grid-column: span 12; min-height: calc(100vh - 150px); }
+    .table-toolbar { display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; margin-bottom:12px; }
+    .table-toolbar .actions { margin-left:auto; }
+    .table-wrap.wide table { min-width: 1280px; }
+    .quick-actions { display:flex; gap:10px; flex-wrap:wrap; margin-top:16px; position:relative; z-index:1; }
+    .btn-google { background:#fff; color:#1f2937; border:1px solid rgba(255,255,255,.35); display:flex; align-items:center; justify-content:center; gap:8px; }
+    .google-mark { width:18px; height:18px; border-radius:999px; display:inline-grid; place-items:center; font-weight:900; color:#4285f4; background:#fff; }
+
+    .badge.pending { background: rgba(245, 158, 11, .18); color: #fde68a; border-color: rgba(245, 158, 11, .38); }
+    .approval-banner { margin-bottom: 14px; padding: 12px 14px; border-radius: 16px; border: 1px solid rgba(245,158,11,.38); background: rgba(245,158,11,.14); color: #fde68a; display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; }
+    .mobile-menu-toggle { display:none; }
+    .mobile-scroll-hint { display:none; margin:8px 0 10px; font-size:12px; color:var(--muted); }
+
+    .version-badge { min-width:170px; text-align:left; background:linear-gradient(135deg, rgba(148,163,184,.16), rgba(255,255,255,.04)); border-color:rgba(148,163,184,.32); border-radius:18px; }
+    .version-badge b { display:block; font-size:13px; letter-spacing:.04em; color:var(--text); }
+    .version-badge .mini { color:var(--muted); font-weight:700; }
+    .approval-grid { display:grid; grid-template-columns:repeat(3, minmax(0, 1fr)); gap:14px; margin-bottom:16px; }
+    .approval-card { border:1px solid rgba(245,158,11,.35); background:linear-gradient(135deg, rgba(245,158,11,.12), rgba(255,255,255,.03)); border-radius:18px; padding:14px; }
+    .approval-card strong { display:block; font-size:16px; margin-bottom:4px; }
+    .approval-user-list { display:grid; gap:12px; }
+    .approval-user-card { display:grid; grid-template-columns:1fr auto; gap:12px; align-items:center; border:1px solid var(--line); background:var(--card-2); border-radius:18px; padding:14px; }
+    .approval-user-card .meta { display:flex; gap:8px; flex-wrap:wrap; margin-top:8px; }
+    .approval-empty { border:1px dashed var(--line); border-radius:18px; padding:24px; text-align:center; color:var(--muted); background:rgba(255,255,255,.03); }
+
+    @media (max-width: 860px) {
+      body { background-attachment: fixed; }
+      .app-shell { display:block; }
+      .sidebar { position:relative; padding:14px; border-right:0; border-bottom:1px solid rgba(255,255,255,.10); }
+      .brand-mark { gap:10px; }
+      .brand-logo { width:40px; height:40px; border-radius:12px; }
+      .brand-title strong { font-size:16px; }
+      .brand-title span { font-size:11px; }
+      .nav { margin-top:14px; display:grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap:8px; }
+      .nav button { padding:11px 10px; text-align:center; font-size:13px; border-radius:12px; }
+      .sidebar-footer { margin-top:14px; padding-top:12px; }
+      .main { padding:14px; }
+      .topbar { margin-bottom:14px; gap:10px; }
+      .topbar h1 { font-size:22px; }
+      .user-badge { width:100%; padding:10px 12px; }
+      .card { padding:14px; border-radius:18px; }
+      .section-title { flex-direction:column; align-items:flex-start; font-size:16px; }
+      .stats { gap:10px; }
+      .stat { padding:13px; }
+      .stat .value { font-size:24px; }
+      .actions { width:100%; }
+      .actions .btn, .btn { width:100%; justify-content:center; }
+      .table-toolbar { align-items:stretch; }
+      .table-toolbar .actions { margin-left:0; width:100%; }
+      .table-wrap { border:1px solid var(--line); border-radius:14px; -webkit-overflow-scrolling:touch; }
+      table { min-width: 900px; }
+      th, td { padding:9px 10px; font-size:13px; }
+      .modal-backdrop { padding:10px; align-items:end; }
+      .modal-card { width:100%; max-height:92vh; overflow:auto; border-radius:22px 22px 0 0; padding:18px; }
+      .toast-stack { left:10px; right:10px; top:10px; width:auto; }
+      .auth-wrap, .reset-wrap { padding:12px; align-items:start; padding-top:24px; }
+      .auth-card.login-card, .auth-card { padding:20px; border-radius:24px; }
+      .login-logo { width:76px; height:76px; border-radius:22px; }
+      .login-title h1 { font-size:19px; }
+      .contact-footer { grid-template-columns:1fr 1fr; }
+      .contact-btn { font-size:12px; padding:9px 8px; }
+    }
+
+    @media (max-width: 420px) {
+      .nav { grid-template-columns:1fr; }
+      .contact-footer { grid-template-columns:1fr; }
+      .brand-title strong { font-size:15px; }
+      .topbar h1 { font-size:20px; }
+      table { min-width: 780px; }
+    }
+
+    @media (max-width: 1100px) {
+      .app-shell { grid-template-columns: 1fr; }
+      .sidebar { padding-bottom: 0; }
+      .stats { grid-template-columns: 1fr; }
+      .col-8, .col-6, .col-4, .col-3 { grid-column: span 12; }
+    }
+    @media (max-width: 700px) {
+      body { background: linear-gradient(135deg, var(--bg), var(--bg-soft)); }
+      .auth-wrap, .reset-wrap { padding: 12px; align-items: start; }
+      .login-shell, .auth-card { width: 100%; max-width: 100%; }
+      .auth-card.login-card { padding: 20px; border-radius: 22px; }
+      .login-logo { width: 76px; height: 76px; border-radius: 22px; }
+      .app-shell { display:block; }
+      .sidebar { padding: 14px; position: sticky; top: 0; z-index: 50; border-right: 0; border-bottom: 1px solid rgba(255,255,255,.10); }
+      .brand-logo { width: 40px; height: 40px; border-radius: 12px; }
+      .brand-title strong { font-size: 15px; }
+      .brand-title span { font-size: 11px; }
+      .kpu-ribbon { margin: 10px 0; }
+      .nav { margin-top: 12px; display:grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap:8px; }
+      .nav button { padding: 10px 9px; font-size: 12px; text-align:center; border-radius: 12px; }
+      .sidebar-footer { margin-top: 12px; padding-top: 12px; }
+      .theme-switcher { padding: 8px; }
+      .theme-select { min-width: 100%; }
+      .contact-footer { grid-template-columns: 1fr 1fr; }
+      .contact-btn { padding: 9px; font-size: 12px; }
+      .main { padding: 14px; }
+      .topbar { flex-direction: column; align-items: stretch; gap:10px; margin-bottom:14px; }
+      .topbar h1 { font-size: 22px; }
+      .user-badge { padding: 10px 12px; border-radius: 14px; }
+      .grid { gap: 12px; }
+      .card { padding: 14px; border-radius: 18px; }
+      .hero-card h2 { font-size: 20px !important; }
+      .stats { gap: 10px; }
+      .stat { padding: 12px; }
+      .stat .value { font-size: 24px; }
+      .form-grid { grid-template-columns: 1fr; gap: 11px; }
+      input, select, textarea { font-size: 16px; padding: 12px; }
+      .actions { gap: 8px; }
+      .btn { width: 100%; padding: 12px 14px; }
+      .table-toolbar { align-items: stretch; }
+      .table-toolbar .actions { width:100%; margin-left:0; }
+      .table-wrap { border:1px solid var(--line); border-radius:14px; }
+      .table-wrap table, .table-wrap.wide table { min-width: 980px; }
+      th, td { padding: 9px 10px; font-size: 13px; }
+      .mobile-scroll-hint { display:block; }
+      .modal-backdrop { padding: 12px; align-items: end; }
+      .modal-card { max-height: 92vh; overflow:auto; border-radius: 22px 22px 0 0; padding: 18px; }
+      .toast-stack { right: 10px; left: 10px; top: 10px; width: auto; }
+    }
+
+    @media (max-width: 420px) {
+      .approval-grid { grid-template-columns: 1fr; }
+      .approval-user-card { grid-template-columns: 1fr; }
+      .nav { grid-template-columns: 1fr; }
+      .contact-footer { grid-template-columns: 1fr; }
+      .quick-actions .btn { width: 100%; }
+      .section-title { align-items:flex-start; flex-direction:column; }
+    }
+  </style>
+</head>
+<body data-theme="kpu-dark">
+  <div id="app"></div>
+
+  <script>
+    const BOOTSTRAP = <?!= bootstrap ?>;
+    const APP_ASSETS = {
+      logoUrl: 'https://upload.wikimedia.org/wikipedia/commons/4/46/KPU_Logo.svg',
+      orgName: 'Komisi Pemilihan Umum',
+      appMode: 'apps-script', // nanti bisa diganti ke 'pwa' saat dipisah ke GitHub/Cloudflare
+    };
+
+    const THEME_KEY = 'surat_app_theme';
+    const THEME_OPTIONS = [
+      { value: 'kpu-dark', label: 'KPU Dark', color: '#ef4444' },
+      { value: 'kpu-red', label: 'Merah', color: '#dc2626' },
+      { value: 'midnight', label: 'Midnight', color: '#f43f5e' },
+      { value: 'forest', label: 'Forest', color: '#22c55e' },
+      { value: 'ocean', label: 'Ocean', color: '#0ea5e9' },
+      { value: 'purple', label: 'Purple', color: '#a855f7' },
+      { value: 'amber', label: 'Amber', color: '#f59e0b' },
+      { value: 'slate', label: 'Slate', color: '#64748b' },
+      { value: 'rose', label: 'Rose', color: '#fb7185' },
+      { value: 'teal', label: 'Teal', color: '#14b8a6' }
+    ];
+
+    function getSavedTheme() {
+      return localStorage.getItem(THEME_KEY) || 'kpu-dark';
+    }
+
+    function applyTheme(theme) {
+      const valid = THEME_OPTIONS.some(item => item.value === theme) ? theme : 'kpu-dark';
+      document.body.setAttribute('data-theme', valid);
+      localStorage.setItem(THEME_KEY, valid);
+      document.querySelectorAll('.theme-dot').forEach(function(btn) {
+        btn.classList.toggle('active', btn.getAttribute('onclick').indexOf("'" + valid + "'") !== -1);
+      });
+    }
+
+    function renderThemePicker(compact = false) {
+      const current = getSavedTheme();
+      return `
+        <div class="theme-switcher" style="${compact ? 'margin-top:14px;' : ''}">
+          <div class="theme-switcher-head">Tema Tampilan</div>
+          <select class="theme-select" aria-label="Pilih tema tampilan" onchange="setTheme(this.value)">
+            ${THEME_OPTIONS.map(t => `<option value="${escapeHtml(t.value)}" ${t.value === current ? 'selected' : ''}>${escapeHtml(t.label)}</option>`).join('')}
+          </select>
+        </div>`;
+    }
+
+    function setTheme(theme) {
+      applyTheme(theme);
+    }
+
+    function renderBrandMark(extraClass = '') {
+      return `
+        <div class="brand-mark ${extraClass}">
+          <img class="brand-logo" src="${APP_ASSETS.logoUrl}" alt="Logo KPU" loading="lazy">
+          <div class="brand-title">
+            <strong>${escapeHtml(BOOTSTRAP.appName)}</strong>
+            <span>${escapeHtml(APP_ASSETS.orgName)}</span>
+          </div>
+        </div>`;
+    }
+    const state = {
+      sessionToken: sessionStorage.getItem('surat_app_session') || '',
+      user: null,
+      dashboard: null,
+      admin: null,
+      currentView: 'dashboard',
+      loginMode: sessionStorage.getItem('surat_app_login_mode') || '',
+      busy: false
+    };
+    const IDLE_LIMIT_MS = 5 * 60 * 1000;
+    let idleTimer = null;
+
+    function server(fn, ...args) {
+      return new Promise((resolve, reject) => {
+        try {
+          if (!window.google || !google.script || !google.script.run) {
+            reject(new Error('Aplikasi harus dibuka dari URL Web App Apps Script.'));
+            return;
+          }
+          if (typeof google.script.run[fn] !== 'function') {
+            reject(new Error('Fungsi server tidak ditemukan: ' + fn));
+            return;
+          }
+
+          let settled = false;
+          const timeout = setTimeout(() => {
+            if (!settled) {
+              settled = true;
+              reject(new Error('Server terlalu lama merespons. Coba lagi atau cek izin Apps Script/Spreadsheet/Drive.'));
+            }
+          }, 60000);
+
+          google.script.run
+            .withSuccessHandler(res => {
+              if (settled) return;
+              settled = true;
+              clearTimeout(timeout);
+              resolve(res === undefined ? { ok: true } : res);
+            })
+            .withFailureHandler(err => {
+              if (settled) return;
+              settled = true;
+              clearTimeout(timeout);
+              reject(new Error(err && err.message ? err.message : 'Terjadi kesalahan di server.'));
+            })
+            [fn](...args);
+        } catch (err) {
+          reject(new Error(err && err.message ? err.message : 'Terjadi kesalahan koneksi ke server.'));
+        }
+      });
+    }
+
+    function escapeHtml(str) {
+      return String(str || '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    function setNotice(type, message, targetId) {
+      const el = document.getElementById(targetId);
+      if (!el) return;
+      el.className = 'notice ' + type;
+      el.textContent = message;
+      el.classList.remove('hidden');
+    }
+
+    function clearNotice(targetId) {
+      const el = document.getElementById(targetId);
+      if (!el) return;
+      el.className = 'notice hidden';
+      el.textContent = '';
+    }
+
+    function ensureToastStack() {
+      let stack = document.getElementById('toastStack');
+      if (!stack) {
+        stack = document.createElement('div');
+        stack.id = 'toastStack';
+        stack.className = 'toast-stack';
+        document.body.appendChild(stack);
+      }
+      return stack;
+    }
+
+    function showToast(type, message, timeoutMs) {
+      const stack = ensureToastStack();
+      const toast = document.createElement('div');
+      const icon = type === 'success' ? '✓' : type === 'error' ? '!' : 'i';
+      toast.className = 'toast ' + (type || 'info');
+      toast.innerHTML = `<div class="toast-icon">${icon}</div><div class="toast-body">${escapeHtml(message || '')}</div><button class="toast-close" aria-label="Tutup">×</button>`;
+      toast.querySelector('.toast-close').onclick = () => toast.remove();
+      stack.appendChild(toast);
+      setTimeout(() => { if (toast.parentNode) toast.remove(); }, timeoutMs || 4200);
+    }
+
+    function setNoticeLoading(targetId, message) {
+      const el = document.getElementById(targetId);
+      if (!el) return;
+      el.className = 'notice info';
+      el.innerHTML = `<span class="spinner"></span>${escapeHtml(message || 'Memproses...')}`;
+      el.classList.remove('hidden');
+    }
+
+    function setButtonLoading(buttonId, loading, text) {
+      const btn = document.getElementById(buttonId);
+      if (!btn) return;
+      if (loading) {
+        if (!btn.dataset.originalHtml) btn.dataset.originalHtml = btn.innerHTML;
+        btn.disabled = true;
+        btn.innerHTML = `<span class="spinner"></span>${escapeHtml(text || 'Memproses...')}`;
+      } else {
+        btn.disabled = false;
+        btn.innerHTML = btn.dataset.originalHtml || btn.innerHTML;
+        delete btn.dataset.originalHtml;
+      }
+    }
+
+    function appConfirm(message, title) {
+      return new Promise(resolve => {
+        const id = 'modal_' + Date.now();
+        document.body.insertAdjacentHTML('beforeend', `
+          <div id="${id}" class="modal-backdrop">
+            <div class="modal-card">
+              <h2>${escapeHtml(title || 'Konfirmasi')}</h2>
+              <p>${escapeHtml(message || 'Lanjutkan proses?')}</p>
+              <div class="actions" style="justify-content:flex-end;">
+                <button class="btn btn-secondary" data-action="cancel">Batal</button>
+                <button class="btn btn-primary" data-action="ok">Ya, lanjutkan</button>
+              </div>
+            </div>
+          </div>`);
+        const modal = document.getElementById(id);
+        modal.querySelector('[data-action="cancel"]').onclick = () => { modal.remove(); resolve(false); };
+        modal.querySelector('[data-action="ok"]').onclick = () => { modal.remove(); resolve(true); };
+      });
+    }
+
+    function appAlert(message, title, type) {
+      showToast(type || 'info', (title ? title + ': ' : '') + (message || ''));
+    }
+
+    function waLink(number, text) {
+      const clean = String(number || '').replace(/\D/g, '');
+      const intl = clean.startsWith('0') ? ('62' + clean.slice(1)) : clean;
+      return 'https://wa.me/' + intl + '?text=' + encodeURIComponent(text || 'Halo, saya ingin bertanya tentang aplikasi Sistem Upload Surat KPU.');
+    }
+
+    function openWa(number, label) {
+      window.open(waLink(number, 'Halo ' + label + ', saya ingin bertanya tentang aplikasi Sistem Upload Surat KPU.'), '_blank');
+    }
+
+    function saveSession(token, loginMode) {
+      state.sessionToken = token || '';
+      state.loginMode = loginMode || state.loginMode || '';
+      sessionStorage.setItem('surat_app_session', state.sessionToken);
+      if (state.loginMode) sessionStorage.setItem('surat_app_login_mode', state.loginMode);
+    }
+
+    function clearSession() {
+      state.sessionToken = '';
+      state.user = null;
+      state.dashboard = null;
+      state.admin = null;
+      state.loginMode = '';
+      sessionStorage.removeItem('surat_app_session');
+      sessionStorage.removeItem('surat_app_login_mode');
+      sessionStorage.removeItem('surat_app_login_mode');
+    }
+
+    async function init() {
+      applyTheme(getSavedTheme());
+      if (BOOTSTRAP.page === 'reset') {
+        renderResetPage();
+        return;
+      }
+      if (state.sessionToken) {
+        try {
+          await loadDashboard();
+          startIdleWatcher();
+          renderApp();
+          return;
+        } catch (err) {
+          clearSession();
+        }
+      }
+      renderLogin();
+    }
+
+    function startIdleWatcher() {
+      stopIdleWatcher();
+      ['mousemove','keydown','click','touchstart','scroll'].forEach(evt => document.addEventListener(evt, resetIdleTimer, { passive: true }));
+      resetIdleTimer();
+    }
+    function stopIdleWatcher() {
+      if (idleTimer) clearTimeout(idleTimer);
+      idleTimer = null;
+      ['mousemove','keydown','click','touchstart','scroll'].forEach(evt => document.removeEventListener(evt, resetIdleTimer));
+    }
+    function resetIdleTimer() {
+      if (!state.sessionToken) return;
+      if (idleTimer) clearTimeout(idleTimer);
+      idleTimer = setTimeout(() => handleLogout(true), IDLE_LIMIT_MS);
+    }
+    window.addEventListener('beforeunload', function() { sessionStorage.removeItem('surat_app_session'); sessionStorage.removeItem('surat_app_login_mode'); });
+
+    function waIconSvg() {
+      return `<svg class="wa-icon" viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="16" fill="#25D366"></circle><path fill="#fff" d="M22.6 18.9c-.4-.2-2.2-1.1-2.5-1.2-.3-.1-.6-.2-.8.2-.2.4-.9 1.2-1.1 1.4-.2.2-.4.3-.8.1-.4-.2-1.5-.6-2.9-1.8-1.1-1-1.8-2.1-2-2.5-.2-.4 0-.6.2-.8.2-.2.4-.4.6-.7.2-.2.3-.4.4-.6.1-.2.1-.5 0-.7-.1-.2-.8-1.9-1.1-2.6-.3-.7-.6-.6-.8-.6h-.7c-.2 0-.7.1-1 .5-.3.4-1.3 1.3-1.3 3.1s1.3 3.6 1.5 3.9c.2.2 2.6 4 6.3 5.6.9.4 1.6.6 2.1.8.9.3 1.7.3 2.3.2.7-.1 2.2-.9 2.5-1.8.3-.9.3-1.6.2-1.8-.1-.3-.4-.4-.8-.6z"></path><path fill="#fff" d="M16 5.4A10.5 10.5 0 0 0 6.9 21.2L5.6 26l4.9-1.3A10.5 10.5 0 1 0 16 5.4zm0 19.1c-1.8 0-3.5-.5-5-1.5l-.4-.2-2.9.8.8-2.8-.2-.4a8.6 8.6 0 1 1 7.7 4.1z"></path></svg>`;
+    }
+
+    function renderLogin() {
+      stopIdleWatcher();
+      document.getElementById('app').innerHTML = `
+        <div class="auth-wrap">
+          <div class="login-shell">
+            <div class="auth-card login-card">
+              <div class="login-logo-wrap"><img class="login-logo" src="${APP_ASSETS.logoUrl}" alt="Logo KPU" loading="lazy"></div>
+              <div class="login-title"><h1>${escapeHtml(BOOTSTRAP.appName)}</h1><div class="mini">Komisi Pemilihan Umum</div></div>
+              <div class="kpu-ribbon"></div>
+              <div id="loginNotice" class="notice hidden"></div>
+              <div class="field"><label>Email atau Username</label><input type="text" id="loginIdentifier" autocomplete="username" placeholder="email@domain.com / username" onkeydown="if(event.key==='Enter') handleLogin()"></div>
+              <div class="field" style="margin-top:12px;"><label>Password</label><input type="password" id="loginPassword" autocomplete="current-password" placeholder="••••••••" onkeydown="if(event.key==='Enter') handleLogin()"></div>
+              <div class="actions" style="margin-top:18px;"><button id="loginBtn" class="btn btn-primary" style="flex:1;" onclick="handleLogin()">Login</button><button class="btn btn-secondary" onclick="openForgotPassword()">Lupa password</button></div>
+            </div>
+          </div>
+        </div>`;
+    }
+
+    function openForgotPassword() {
+      const email = document.getElementById('loginIdentifier') ? document.getElementById('loginIdentifier').value : '';
+      document.getElementById('app').insertAdjacentHTML('beforeend', `
+        <div id="forgotModal" class="modal-backdrop">
+          <div class="modal-card">
+            <h2>Lupa Password</h2>
+            <p>Masukkan email user. Sistem akan mengirim tautan reset password.</p>
+            <div id="forgotNotice" class="notice hidden"></div>
+            <div class="field">
+              <label>Email</label>
+              <input type="email" id="forgotEmail" value="${escapeHtml(email)}" placeholder="nama@email.com">
+            </div>
+            <div class="actions" style="margin-top:16px;">
+              <button id="forgotBtn" class="btn btn-primary" onclick="submitForgotPassword()">Kirim link reset</button>
+              <button class="btn btn-secondary" onclick="document.getElementById('forgotModal').remove()">Tutup</button>
+            </div>
+          </div>
+        </div>
+      `);
+    }
+
+    async function submitForgotPassword() {
+      clearNotice('forgotNotice');
+      setButtonLoading('forgotBtn', true, 'Mengirim...');
+      setNoticeLoading('forgotNotice', 'Mengirim tautan reset password...');
+      try {
+        const email = document.getElementById('forgotEmail').value.trim();
+        const res = await server('requestPasswordReset', email);
+        setNotice('success', res.message, 'forgotNotice');
+        showToast('success', res.message);
+      } catch (err) {
+        setNotice('error', err.message, 'forgotNotice');
+        showToast('error', err.message);
+      } finally {
+        setButtonLoading('forgotBtn', false);
+      }
+    }
+
+    function renderResetPage() {
+      document.getElementById('app').innerHTML = `
+        <div class="reset-wrap">
+          <div class="auth-card">
+            ${renderBrandMark('auth-brand')}
+            <div class="kpu-ribbon"></div>
+            <h2>Reset Password</h2>
+            <p>Buat password baru untuk akun Anda.</p>
+            <div id="resetNotice" class="notice hidden"></div>
+            <div class="field">
+              <label>Password baru</label>
+              <input type="password" id="newPassword" placeholder="Minimal 8 karakter">
+            </div>
+            <div class="field" style="margin-top:12px;">
+              <label>Ulangi password baru</label>
+              <input type="password" id="confirmPassword" placeholder="Ulangi password">
+            </div>
+            <div class="actions" style="margin-top:16px;">
+              <button class="btn btn-primary" onclick="submitResetPassword()">Simpan password baru</button>
+            </div>
+          </div>
+        </div>`;
+      validateResetToken();
+    }
+
+    async function validateResetToken() {
+      try {
+        const res = await server('validateResetToken', BOOTSTRAP.token);
+        if (!res.ok) {
+          setNotice('error', 'Token reset tidak valid atau sudah kedaluwarsa.', 'resetNotice');
+        }
+      } catch (err) {
+        setNotice('error', err.message, 'resetNotice');
+      }
+    }
+
+    function callResetPassword(token, password) {
+      return new Promise((resolve, reject) => {
+        try {
+          google.script.run
+            .withSuccessHandler(res => {
+              // Apps Script kadang mengembalikan null pada halaman reset walaupun proses berhasil.
+              // Khusus reset password, null dianggap berhasil supaya user tetap diarahkan ke login.
+              resolve(res || { ok: true, message: 'Password berhasil diubah. Silakan login.' });
+            })
+            .withFailureHandler(err => reject(new Error(err && err.message ? err.message : 'Reset password gagal.')))
+            .resetPassword(token, password);
+        } catch (err) {
+          reject(new Error(err && err.message ? err.message : 'Terjadi kesalahan koneksi ke server.'));
+        }
+      });
+    }
+
+    async function submitResetPassword() {
+      clearNotice('resetNotice');
+      const p1 = document.getElementById('newPassword').value;
+      const p2 = document.getElementById('confirmPassword').value;
+      if (p1 !== p2) {
+        setNotice('error', 'Konfirmasi password tidak sama.', 'resetNotice');
+        return;
+      }
+      try {
+        const res = await callResetPassword(BOOTSTRAP.token, p1);
+        clearSession();
+        localStorage.removeItem('surat_app_session');
+        sessionStorage.removeItem('surat_app_session');
+        setNotice('success', (res.message || 'Password berhasil diubah. Silakan login.') + ' Mengalihkan ke halaman login...', 'resetNotice');
+        setTimeout(function() {
+          window.location.href = window.location.href.split('?')[0];
+        }, 1200);
+      } catch (err) {
+        setNotice('error', err.message, 'resetNotice');
+      }
+    }
+
+    async function handleLogin() {
+      if (state.busy) return;
+      clearNotice('loginNotice');
+      setButtonLoading('loginBtn', true, 'Login...');
+      setNoticeLoading('loginNotice', 'Sedang login, mohon tunggu...');
+      state.busy = true;
+      try {
+        const identifierEl = document.getElementById('loginIdentifier');
+        const passwordEl = document.getElementById('loginPassword');
+        const identifier = identifierEl ? identifierEl.value.trim() : '';
+        const password = passwordEl ? passwordEl.value : '';
+        const res = await server('login', { identifier, password });
+        if (!res || !res.ok || !res.sessionToken) {
+          throw new Error('Login gagal. Respons server kosong. Refresh halaman lalu coba lagi.');
+        }
+        saveSession(res.sessionToken, res.loginMode || 'password');
+        if (res.dashboard && res.dashboard.user) {
+          state.user = res.dashboard.user;
+          state.dashboard = res.dashboard;
+        } else {
+          await loadDashboard();
+        }
+        startIdleWatcher();
+        showToast('success', 'Login berhasil. Selamat datang, ' + (state.user.name || state.user.email || 'user') + '.');
+        renderApp();
+      } catch (err) {
+        const isPending = String(err.message || '').toLowerCase().indexOf('menunggu persetujuan') !== -1;
+        setNotice(isPending ? 'info' : 'error', err.message, 'loginNotice');
+        showToast(isPending ? 'info' : 'error', err.message);
+      } finally {
+        state.busy = false;
+        setButtonLoading('loginBtn', false);
+      }
+    }
+
+    async function loadDashboard() {
+      const res = await server('getDashboardData', state.sessionToken);
+      if (!res || !res.ok || !res.user) {
+        throw new Error('Dashboard gagal dimuat. Respons server tidak lengkap.');
+      }
+      state.user = res.user;
+      state.dashboard = res;
+      if (state.user.role !== 'admin') {
+        state.currentView = 'dashboard';
+      }
+      return res;
+    }
+
+    async function loadAdmin() {
+      if (state.user && state.user.role === 'admin') {
+        const res = await server('getAdminData', state.sessionToken);
+        state.admin = res;
+      }
+    }
+
+    function renderApp() {
+      const d = state.dashboard || { uploads: [], folders: [], stats: {} };
+      const user = state.user || {};
+      const categoryOptions = buildCategoryOptions(d.folders || []);
+      document.getElementById('app').innerHTML = `
+        <div class="app-shell">
+          <aside class="sidebar">
+            ${renderBrandMark()}
+            <div class="kpu-ribbon"></div>
+            <small>${escapeHtml(user.name || '')}<br>${escapeHtml(user.email || '')}</small>
+            <div class="nav">
+              <button class="${state.currentView === 'dashboard' ? 'active' : ''}" onclick="switchView('dashboard')">Dashboard</button>
+              <button class="${state.currentView === 'upload' ? 'active' : ''}" onclick="switchView('upload')">Upload Surat</button>
+              <button class="${state.currentView === 'uploads' ? 'active' : ''}" onclick="switchView('uploads')">Tabel Hasil Upload</button>
+              <button class="${state.currentView === 'folders' ? 'active' : ''}" onclick="switchView('folders')">Daftar Folder</button>
+              ${user.role === 'admin' ? `<button class="${state.currentView === 'adminUsers' ? 'active' : ''}" onclick="switchView('adminUsers')">Admin · User</button>
+              <button class="${state.currentView === 'adminFolders' ? 'active' : ''}" onclick="switchView('adminFolders')">Admin · Folder</button>` : ''}
+            </div>
+            <div class="sidebar-footer">
+              ${renderThemePicker(true)}
+                <div style="margin-top:12px;">Role: <span class="badge ${escapeHtml(user.role)}">${escapeHtml(user.role)}</span></div>
+              <div style="margin-top:12px;"><button class="btn btn-secondary" style="width:100%;" onclick="handleLogout()">Logout</button></div>
+              <div class="contact-footer">
+                <button class="contact-btn whatsapp" type="button" onclick="openWa('082147066076','Admin')">${waIconSvg()} <span>Admin</span></button>
+                <button class="contact-btn whatsapp" type="button" onclick="openWa('081263184787','Tim Dev')">${waIconSvg()} <span>Tim Dev</span></button>
+              </div>
+              <div class="copyright">© KPU Kabupaten Labuhanbatu Utara</div>
+            </div>
+          </aside>
+          <main class="main">
+            <div class="topbar">
+              <div>
+                <h1>${state.currentView === 'dashboard' ? 'Dashboard' : state.currentView === 'upload' ? 'Upload Surat' : state.currentView === 'uploads' ? 'Tabel Hasil Upload' : state.currentView === 'folders' ? 'Daftar Folder Tujuan' : state.currentView === 'adminUsers' ? 'Manajemen User' : 'Manajemen Folder'}</h1>
+
+              </div>
+              <div class="user-badge version-badge">
+                <div><b>Sistem Aktif</b></div>
+                <div class="mini">v18</div>
+              </div>
+            </div>
+            ${renderView(categoryOptions)}
+          </main>
+        </div>
+      `;
+      if (state.currentView === 'upload') {
+        populateSubFolders();
+      }
+    }
+
+    function renderView(categoryOptions) {
+      switch (state.currentView) {
+        case 'upload': return renderUploadPage(categoryOptions);
+        case 'uploads': return renderUploadsPage();
+        case 'folders': return renderFoldersPage();
+        case 'adminUsers': return renderAdminUsersPage();
+        case 'adminFolders': return renderAdminFoldersPage();
+        default: return renderDashboardPage(categoryOptions);
+      }
+    }
+
+    function renderDashboardPage(categoryOptions) {
+      const stats = state.dashboard.stats || {};
+      const uploads = state.dashboard.uploads || [];
+      const folders = state.dashboard.folders || [];
+      return `
+        <div class="grid">
+          <section class="col-12 card hero-card">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:16px;position:relative;z-index:1;">
+              <div>
+                <h2 style="margin:0;font-size:24px;">Dashboard Arsip Surat KPU</h2>
+                <div class="mini">Pantau ringkasan upload, folder aktif, dan kategori surat.</div>
+              </div>
+              <img src="${APP_ASSETS.logoUrl}" alt="Logo KPU" style="width:70px;height:70px;background:#fff;border-radius:20px;padding:8px;">
+            </div>
+            <div class="stats" style="position:relative;z-index:1;">
+              <div class="stat"><div class="label">Total Upload</div><div class="value">${uploads.length}</div></div>
+              <div class="stat"><div class="label">Total Folder Aktif</div><div class="value">${stats.totalFolders || 0}</div></div>
+              <div class="stat"><div class="label">Total Kategori</div><div class="value">${stats.totalCategories || 0}</div></div>
+            </div>
+            <div class="quick-actions">
+              <button class="btn btn-secondary" onclick="switchView('upload')">Upload Surat</button>
+              <button class="btn btn-secondary" onclick="switchView('uploads')">Lihat Tabel Hasil Upload</button>
+              <button class="btn btn-secondary" onclick="switchView('folders')">Daftar Folder</button>
+            </div>
+          </section>
+          <section class="col-12 card">
+            <h3 class="section-title">Ringkasan Folder Aktif</h3>
+            <div class="pill-list">
+              ${folders.filter(f => f.active).slice(0, 18).map(f => `<div class="pill"><b>${escapeHtml(f.category)}</b> · ${escapeHtml(f.folderName)}</div>`).join('') || '<span class="muted">Belum ada folder aktif.</span>'}
+            </div>
+          </section>
+        </div>`;
+    }
+
+    function renderUploadPage(categoryOptions) {
+      return `
+        <div class="grid">
+          <section class="col-12 card">
+            <h3 class="section-title">Form Upload Surat</h3>
+            
+            <div id="uploadNotice" class="notice hidden"></div>
+            <div class="form-grid">
+              <div class="field"><label>Tanggal</label><input type="date" id="tanggal"></div>
+              <div class="field"><label>Nomor Surat</label><input type="text" id="nomorSurat" placeholder="Nomor surat"></div>
+              <div class="field full"><label>Nama Surat</label><input type="text" id="namaSurat" placeholder="Nama surat"></div>
+              <div class="field"><label>Jenis Surat</label><input type="text" id="jenisSurat" placeholder="Jenis surat"></div>
+              <div class="field"><label>Kategori</label><select id="kategori" onchange="populateSubFolders()">${categoryOptions}</select></div>
+              <div class="field full"><label>Sub Folder Tujuan</label><select id="folderId"></select></div>
+              <div class="field full"><label>File</label><input type="file" id="fileInput"></div>
+              <div class="field full"><label>Folder Google Drive Tujuan</label><div id="folderLinkInfo" class="mini">Pilih sub folder terlebih dahulu.</div></div>
+            </div>
+            <div class="actions" style="margin-top:14px;">
+              <button id="uploadBtn" class="btn btn-primary" onclick="handleUpload()">Upload File</button>
+              <button class="btn btn-secondary" onclick="resetUploadForm()">Reset Form</button>
+            </div>
+          </section>
+        </div>`;
+    }
+
+    function renderUploadsPage() {
+      const uploads = state.dashboard.uploads || [];
+      return `
+        <div class="grid">
+          <section class="card table-page-card">
+            <div class="table-toolbar">
+              <h3 class="section-title" style="margin:0;">Tabel Hasil Upload</h3>
+              <div class="actions">
+                ${state.user && state.user.role === 'admin' ? '<button id="syncDriveBtn" class="btn btn-secondary" onclick="handleSyncDriveFiles()">Baca File dari Folder</button>' : ''}
+                <button class="btn btn-secondary" onclick="loadDashboard().then(renderApp)">Refresh Tabel</button>
+              </div>
+            </div>
+            ${renderUploadsTable(uploads, true)}
+          </section>
+        </div>`;
+    }
+
+    function renderFoldersPage() {
+      const folders = state.dashboard.folders || [];
+      return `
+        <div class="grid">
+          <section class="col-12 card">
+            <h3 class="section-title">Folder Tujuan Upload</h3>
+            <div class="pill-list" style="margin-bottom:14px;">
+              ${folders.map(f => `<div class="pill"><b>${escapeHtml(f.category)}</b> · ${escapeHtml(f.folderName)}</div>`).join('') || '<span class="muted">Belum ada folder.</span>'}
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>No</th>
+                    <th>Kategori</th>
+                    <th>Nama Folder</th>
+                    <th>Link GDrive</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  ${folders.map((f, i) => `
+                    <tr>
+                      <td>${i + 1}</td>
+                      <td>${escapeHtml(f.category)}</td>
+                      <td>${escapeHtml(f.folderName)}</td>
+                      <td>${f.driveLink ? `<a href="${escapeHtml(f.driveLink)}" target="_blank">Buka folder</a>` : '<span class="muted">Belum diisi</span>'}</td>
+                      <td><span class="badge ${f.active ? 'user' : 'off'}">${f.active ? 'Aktif' : 'Nonaktif'}</span></td>
+                    </tr>`).join('') || `<tr><td colspan="5" class="muted">Belum ada folder.</td></tr>`}
+                </tbody>
+              </table>
+            </div>
+          </section>
+        </div>`;
+    }
+
+    function renderAdminUsersPage() {
+      const users = (state.admin && state.admin.users) || [];
+      if (!state.admin) {
+        loadAdmin().then(renderApp).catch(alertError);
+        return '<div class="card">Memuat data admin...</div>';
+      }
+      return `
+        <div class="grid">
+          <section class="col-4 card">
+            <h3 class="section-title">Tambah User</h3>
+            <div id="adminUserNotice" class="notice hidden"></div>
+            <div class="form-grid">
+              <div class="field full"><label>Nama</label><input type="text" id="adminNama"></div>
+              <div class="field full"><label>Email</label><input type="email" id="adminEmail"></div>
+              <div class="field full"><label>Username</label><input type="text" id="adminUsername" placeholder="username login"></div>
+              <div class="field full"><label>Password</label><input type="password" id="adminPassword"></div>
+              <div class="field full"><label>Role</label><select id="adminRole"><option value="user">user</option><option value="admin">admin</option></select></div>
+            </div>
+            <div class="actions" style="margin-top:14px;">
+              <button id="createUserBtn" class="btn btn-primary" onclick="handleCreateUser()">Simpan User</button>
+            </div>
+          </section>
+          <section class="col-8 card">
+            <h3 class="section-title">List User</h3>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>No</th>
+                    <th>Nama</th>
+                    <th>Email</th>
+                    <th>Username</th>
+                    <th>Role</th>
+                    <th>Status</th>
+                    <th>Aksi</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  ${users.map((u, i) => `
+                    <tr>
+                      <td>${i + 1}</td>
+                      <td>${escapeHtml(u.nama)}</td>
+                      <td>${escapeHtml(u.email)}</td>
+                      <td>${escapeHtml(u.username || '')}</td>
+                      <td><span class="badge ${escapeHtml(u.role)}">${escapeHtml(u.role)}</span></td>
+                      <td><span class="badge ${u.active ? 'user' : 'off'}">${u.active ? 'Aktif' : 'Nonaktif'}</span></td>
+                      <td>
+                        <div class="actions">
+                          <button class="btn btn-secondary" onclick='openEditUser(${JSON.stringify(u).replace(/'/g, '&apos;')})'>Edit</button>
+                          <button class="btn btn-danger" onclick="handleDeleteUser('${escapeHtml(u.id)}')">Hapus</button>
+                        </div>
+                      </td>
+                    </tr>
+                  `).join('') || `<tr><td colspan="7" class="muted">Belum ada user.</td></tr>`}
+                </tbody>
+              </table>
+            </div>
+          </section>
+        </div>`;
+    }
+
+    function getFolderCategoryList() {
+      const defaults = ['Teknis', 'Hukum', 'Keuangan', 'Umum', 'Logistik', 'SDM', 'Data dan Informasi', 'Partisipasi Masyarakat', 'Perencanaan', 'Lainnya'];
+      const fromFolders = [
+        ...(((state.dashboard && state.dashboard.folders) || []).map(f => f.category).filter(Boolean)),
+        ...(((state.admin && state.admin.folders) || []).map(f => f.category).filter(Boolean))
+      ];
+      return [...new Set([...defaults, ...fromFolders])].sort((a, b) => String(a).localeCompare(String(b)));
+    }
+
+    function renderAdminCategoryOptions(selected) {
+      const list = getFolderCategoryList();
+      return list.map(c => `<option value="${escapeHtml(c)}" ${selected === c ? 'selected' : ''}>${escapeHtml(c)}</option>`).join('') + '<option value="__custom__">+ Tambah kategori lain/manual</option>';
+    }
+
+    function setSelectValueOrAppend(selectId, value) {
+      const el = document.getElementById(selectId);
+      if (!el) return;
+      const val = String(value || '').trim();
+      if (!val) return;
+      const exists = Array.from(el.options).some(opt => opt.value === val);
+      if (!exists) el.insertAdjacentHTML('beforeend', `<option value="${escapeHtml(val)}">${escapeHtml(val)}</option>`);
+      el.value = val;
+    }
+
+    function toggleCustomCategory() {
+      const select = document.getElementById('folderKategori');
+      const wrap = document.getElementById('customCategoryWrap');
+      const manual = document.getElementById('folderKategoriManual');
+      if (!select || !wrap) return;
+      const custom = select.value === '__custom__';
+      wrap.classList.toggle('hidden', !custom);
+      if (custom && manual) setTimeout(() => manual.focus(), 0);
+    }
+
+    function getAdminFolderCategoryValue() {
+      const select = document.getElementById('folderKategori');
+      const manual = document.getElementById('folderKategoriManual');
+      if (!select) return '';
+      if (select.value === '__custom__') return manual ? manual.value.trim() : '';
+      return select.value;
+    }
+
+    function renderAdminFoldersPage() {
+      const folders = (state.admin && state.admin.folders) || [];
+      if (!state.admin) {
+        loadAdmin().then(renderApp).catch(alertError);
+        return '<div class="card">Memuat data admin...</div>';
+      }
+      return `
+        <div class="grid">
+          <section class="col-4 card">
+            <h3 class="section-title">Tambah / Edit Folder</h3>
+            <div id="adminFolderNotice" class="notice hidden"></div>
+            <input type="hidden" id="folderEditId">
+            <div class="form-grid">
+              <div class="field full"><label>Kategori / Folder Utama</label><select id="folderKategori" onchange="toggleCustomCategory()">${renderAdminCategoryOptions()}</select><div id="customCategoryWrap" class="custom-category-wrap hidden"><input type="text" id="folderKategoriManual" placeholder="Tulis kategori baru/manual"></div><div class="select-note">Pilih kategori dari daftar, atau pilih + Tambah kategori lain/manual.</div></div>
+              <div class="field full"><label>Nama Sub Folder</label><input type="text" id="folderNama" placeholder="Nama sub folder"></div>
+              <div class="field full"><label>Link Google Drive Parent Opsional</label><input type="text" id="folderParentDriveLink" placeholder="Kosongkan jika dibuat di My Drive, atau isi folder induk"></div>
+              <div class="field full"><label>Link Google Drive Folder</label><input type="text" id="folderDriveLink" placeholder="Isi manual, atau kosongkan lalu centang buat otomatis" ></div>
+              <div class="field full"><label><input type="checkbox" id="folderCreateInDrive" style="width:auto;margin-right:8px;">Buat folder/sub folder otomatis di Drive</label><div class="mini">Jika dicentang, aplikasi akan membuat struktur Parent/Kategori/Sub Folder dan mengisi link ke sheet.</div></div>
+              <div class="field full"><label>Status</label><select id="folderActive"><option value="true">Aktif</option><option value="false">Nonaktif</option></select></div>
+            </div>
+            <div class="actions" style="margin-top:14px;">
+              <button id="saveFolderBtn" class="btn btn-primary" onclick="handleSaveFolder()">Simpan Folder</button>
+              <button id="createFoldersBtn" class="btn btn-success" onclick="handleCreateFoldersFromSheet()">Buat Folder dari Sheet</button>
+              <button class="btn btn-secondary" onclick="resetFolderForm()">Reset</button>
+            </div>
+          </section>
+          <section class="col-8 card">
+            <h3 class="section-title">List Folder Admin</h3>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>No</th>
+                    <th>Kategori</th>
+                    <th>Nama Folder</th>
+                    <th>Parent GDrive</th>
+                    <th>Link GDrive</th>
+                    <th>Status</th>
+                    <th>Aksi</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  ${folders.map((f, i) => `
+                    <tr>
+                      <td>${i + 1}</td>
+                      <td>${escapeHtml(f.category)}</td>
+                      <td>${escapeHtml(f.folderName)}</td>
+                      <td>${f.parentDriveLink ? `<a href="${escapeHtml(f.parentDriveLink)}" target="_blank">Buka parent</a>` : '<span class="muted">My Drive / kosong</span>'}</td>
+                      <td>${f.driveLink ? `<a href="${escapeHtml(f.driveLink)}" target="_blank">Buka folder</a>` : '<span class="muted">Belum diisi</span>'}</td>
+                      <td><span class="badge ${f.active ? 'user' : 'off'}">${f.active ? 'Aktif' : 'Nonaktif'}</span></td>
+                      <td>
+                        <div class="actions">
+                          <button class="btn btn-secondary" onclick='openEditFolder(${JSON.stringify(f).replace(/'/g, '&apos;')})'>Edit</button>
+                          <button class="btn btn-danger" onclick="handleDeleteFolder('${escapeHtml(f.id)}')">Hapus</button>
+                        </div>
+                      </td>
+                    </tr>
+                  `).join('') || `<tr><td colspan="7" class="muted">Belum ada folder.</td></tr>`}
+                </tbody>
+              </table>
+            </div>
+          </section>
+        </div>`;
+    }
+
+    function renderUploadsTable(uploads, wide) {
+      return `
+        <div class="mobile-scroll-hint">Geser tabel ke kanan/kiri untuk melihat semua kolom.</div>
+        <div class="table-wrap ${wide ? 'wide' : ''}">
+          <table>
+            <thead>
+              <tr>
+                <th>No</th>
+                <th>Tanggal</th>
+                <th>Nomor Surat</th>
+                <th>Nama Surat</th>
+                <th>Jenis Surat</th>
+                <th>Kategori</th>
+                <th>Folder</th>
+                <th>Link File</th>
+                <th>Pengupload</th>
+                ${state.user && state.user.role === 'admin' ? '<th>Aksi</th>' : ''}
+              </tr>
+            </thead>
+            <tbody>
+              ${uploads.map((u, i) => `
+                <tr>
+                  <td>${i + 1}</td>
+                  <td>${escapeHtml(u.tanggal)}</td>
+                  <td>${escapeHtml(u.nomorSurat)}</td>
+                  <td>${escapeHtml(u.namaSurat)}</td>
+                  <td>${escapeHtml(u.jenisSurat)}</td>
+                  <td>${escapeHtml(u.kategori)}</td>
+                  <td>${escapeHtml(u.subFolder)}</td>
+                  <td><a href="${escapeHtml(u.fileUrl)}" target="_blank">${escapeHtml(u.fileName || 'Buka file')}</a></td>
+                  <td>${escapeHtml(u.uploadedBy)}<div class="mini">${escapeHtml(u.uploadedByEmail)}</div></td>
+                  ${state.user && state.user.role === 'admin' ? `<td><div class="actions" style="justify-content:center;"><button class="btn btn-secondary" onclick='openEditUpload(${JSON.stringify(u).replace(/'/g, '&apos;')})'>Edit</button><button class="btn btn-danger" onclick="handleDeleteUpload('${escapeHtml(u.id)}')">Hapus</button></div></td>` : ''}
+                </tr>`).join('') || `<tr><td colspan="${state.user && state.user.role === 'admin' ? 10 : 9}" class="muted">Belum ada data upload.</td></tr>`}
+            </tbody>
+          </table>
+        </div>`;
+    }
+
+    function buildCategoryOptions(folders) {
+      const categories = [...new Set((folders || []).map(f => f.category).filter(Boolean))];
+      return categories.map(c => `<option value="${escapeHtml(c)}">${escapeHtml(c)}</option>`).join('') || '<option value="">Belum ada kategori</option>';
+    }
+
+    function populateSubFolders() {
+      const kategoriEl = document.getElementById('kategori');
+      const folderEl = document.getElementById('folderId');
+      const infoEl = document.getElementById('folderLinkInfo');
+      if (!kategoriEl || !folderEl) return;
+      const current = kategoriEl.value;
+      const folders = (state.dashboard.folders || []).filter(f => f.category === current && f.active);
+      folderEl.innerHTML = folders.map(f => `<option value="${escapeHtml(f.id)}">${escapeHtml(f.folderName)}</option>`).join('') || '<option value="">Belum ada sub folder aktif</option>';
+      folderEl.onchange = updateFolderLinkInfo;
+      updateFolderLinkInfo();
+      if (infoEl && folders.length === 0) infoEl.innerHTML = 'Belum ada sub folder aktif untuk kategori ini.';
+    }
+
+    function updateFolderLinkInfo() {
+      const folderId = document.getElementById('folderId') ? document.getElementById('folderId').value : '';
+      const infoEl = document.getElementById('folderLinkInfo');
+      if (!infoEl) return;
+      const folder = (state.dashboard.folders || []).find(f => f.id === folderId);
+      infoEl.innerHTML = folder && folder.driveLink ? `Tujuan: <a href="${escapeHtml(folder.driveLink)}" target="_blank">${escapeHtml(folder.folderName)}</a>` : 'Link folder belum tersedia atau belum dipilih.';
+    }
+
+    function resetUploadForm() {
+      ['tanggal','nomorSurat','namaSurat','jenisSurat'].forEach(id => { const el = document.getElementById(id); if (el) el.value = ''; });
+      const fileInput = document.getElementById('fileInput');
+      if (fileInput) fileInput.value = '';
+      populateSubFolders();
+      clearNotice('uploadNotice');
+    }
+
+    function fileToBase64(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => {
+          const result = reader.result || '';
+          resolve(String(result).split(',')[1]);
+        };
+        reader.onerror = () => reject(new Error('Gagal membaca file.'));
+        reader.readAsDataURL(file);
+      });
+    }
+
+    async function handleUpload() {
+      clearNotice('uploadNotice');
+      setButtonLoading('uploadBtn', true, 'Mengupload...');
+      setNoticeLoading('uploadNotice', 'File sedang diupload...');
+      try {
+        const fileEl = document.getElementById('fileInput');
+        const file = fileEl.files[0];
+        if (!file) throw new Error('File wajib dipilih.');
+        const base64 = await fileToBase64(file);
+        const payload = {
+          tanggal: document.getElementById('tanggal').value,
+          nomorSurat: document.getElementById('nomorSurat').value,
+          namaSurat: document.getElementById('namaSurat').value,
+          jenisSurat: document.getElementById('jenisSurat').value,
+          folderId: document.getElementById('folderId').value,
+          fileObject: {
+            fileName: file.name,
+            mimeType: file.type || 'application/octet-stream',
+            base64: base64
+          }
+        };
+        const res = await server('uploadDocument', state.sessionToken, payload);
+        await loadDashboard();
+        renderApp();
+        showToast('success', res.message || 'File berhasil diupload.');
+      } catch (err) {
+        setNotice('error', err.message, 'uploadNotice');
+        showToast('error', err.message);
+      } finally {
+        setButtonLoading('uploadBtn', false);
+      }
+    }
+
+    function openEditUpload(upload) {
+      document.body.insertAdjacentHTML('beforeend', `
+        <div id="editUploadModal" class="modal-backdrop">
+          <div class="modal-card" style="max-width:720px;">
+            <h2>Edit Teks Tabel Upload</h2>
+            <p>Perubahan ini hanya mengubah teks/data pada tabel dan sheet, bukan isi file Drive.</p>
+            <div id="editUploadNotice" class="notice hidden"></div>
+            <div class="form-grid">
+              <div class="field"><label>Tanggal</label><input type="date" id="editUploadTanggal" value="${escapeHtml(upload.tanggal)}"></div>
+              <div class="field"><label>Nomor Surat</label><input type="text" id="editUploadNomor" value="${escapeHtml(upload.nomorSurat)}"></div>
+              <div class="field full"><label>Nama Surat</label><input type="text" id="editUploadNama" value="${escapeHtml(upload.namaSurat)}"></div>
+              <div class="field"><label>Jenis Surat</label><input type="text" id="editUploadJenis" value="${escapeHtml(upload.jenisSurat)}"></div>
+              <div class="field"><label>Kategori</label><input type="text" id="editUploadKategori" value="${escapeHtml(upload.kategori)}"></div>
+              <div class="field full"><label>Folder</label><input type="text" id="editUploadFolder" value="${escapeHtml(upload.subFolder)}"></div>
+            </div>
+            <div class="actions" style="margin-top:16px; justify-content:flex-end;">
+              <button class="btn btn-secondary" onclick="document.getElementById('editUploadModal').remove()">Tutup</button>
+              <button id="editUploadBtn" class="btn btn-primary" onclick="submitEditUpload('${escapeHtml(upload.id)}')">Simpan Perubahan</button>
+            </div>
+          </div>
+        </div>`);
+    }
+
+    async function submitEditUpload(id) {
+      clearNotice('editUploadNotice');
+      setButtonLoading('editUploadBtn', true, 'Menyimpan...');
+      setNoticeLoading('editUploadNotice', 'Menyimpan perubahan tabel...');
+      try {
+        const payload = {
+          id,
+          tanggal: document.getElementById('editUploadTanggal').value,
+          nomorSurat: document.getElementById('editUploadNomor').value,
+          namaSurat: document.getElementById('editUploadNama').value,
+          jenisSurat: document.getElementById('editUploadJenis').value,
+          kategori: document.getElementById('editUploadKategori').value,
+          subFolder: document.getElementById('editUploadFolder').value
+        };
+        const res = await server('adminUpdateUpload', state.sessionToken, payload);
+        document.getElementById('editUploadModal').remove();
+        await loadDashboard();
+        renderApp();
+        showToast('success', res.message || 'Data tabel berhasil diperbarui.');
+      } catch (err) {
+        setNotice('error', err.message, 'editUploadNotice');
+        showToast('error', err.message);
+      } finally {
+        setButtonLoading('editUploadBtn', false);
+      }
+    }
+
+    async function handleDeleteUpload(id) {
+      if (!(await appConfirm('Hapus baris upload ini dari tabel, sheet, dan pindahkan file Drive ke Sampah?', 'Hapus Upload'))) return;
+      try {
+        const res = await server('adminDeleteUpload', state.sessionToken, id);
+        await loadDashboard();
+        renderApp();
+        showToast('success', res.message || 'Data upload berhasil dihapus.');
+      } catch (err) {
+        showToast('error', err.message || 'Gagal menghapus data upload.');
+      }
+    }
+
+    async function handleSyncDriveFiles() {
+      if (!(await appConfirm('Baca semua file yang ada di folder Google Drive aktif ke tabel upload? File yang sudah ada tidak akan diduplikasi.', 'Sinkronisasi File Folder'))) return;
+      setButtonLoading('syncDriveBtn', true, 'Membaca...');
+      try {
+        const res = await server('adminSyncDriveFilesToUploads', state.sessionToken);
+        await loadDashboard();
+        renderApp();
+        showToast('success', res.message || 'File dari folder berhasil dibaca ke tabel.');
+      } catch (err) {
+        showToast('error', err.message || 'Gagal membaca file dari folder.');
+      } finally {
+        setButtonLoading('syncDriveBtn', false);
+      }
+    }
+
+    async function switchView(view) {
+      state.currentView = view;
+      if ((view === 'adminUsers' || view === 'adminFolders') && state.user.role === 'admin') {
+        await loadAdmin();
+      }
+      renderApp();
+    }
+
+    async function handleLogout(silent) {
+      try { await server('logout', state.sessionToken); } catch (e) {}
+      stopIdleWatcher();
+      clearSession();
+      renderLogin();
+      if (silent === true) setNotice('info', 'Sesi otomatis berakhir karena tidak aktif lebih dari 5 menit.', 'loginNotice');
+    }
+
+    async function handleCreateUser() {
+      clearNotice('adminUserNotice');
+      setButtonLoading('createUserBtn', true, 'Menyimpan...');
+      setNoticeLoading('adminUserNotice', 'Menyimpan user...');
+      try {
+        const payload = {
+          nama: document.getElementById('adminNama').value,
+          email: document.getElementById('adminEmail').value,
+          username: document.getElementById('adminUsername').value,
+          password: document.getElementById('adminPassword').value,
+          role: document.getElementById('adminRole').value
+        };
+        const res = await server('adminCreateUser', state.sessionToken, payload);
+        state.admin.users = res.users;
+        ['adminNama','adminEmail','adminUsername','adminPassword'].forEach(id => document.getElementById(id).value = '');
+        document.getElementById('adminRole').value = 'user';
+        renderApp();
+        showToast('success', 'User berhasil dibuat.');
+      } catch (err) {
+        setNotice('error', err.message, 'adminUserNotice');
+        showToast('error', err.message);
+      } finally {
+        setButtonLoading('createUserBtn', false);
+      }
+    }
+
+    function openEditUser(user) {
+      document.body.insertAdjacentHTML('beforeend', `
+        <div id="editUserModal" class="modal-backdrop">
+          <div class="modal-card" style="max-width:560px;">
+            <h2>Edit User</h2>
+            <div id="editUserNotice" class="notice hidden"></div>
+            <div class="form-grid">
+              <div class="field full"><label>Nama</label><input id="editNama" value="${escapeHtml(user.nama)}"></div>
+              <div class="field full"><label>Email</label><input id="editEmail" type="email" value="${escapeHtml(user.email)}"></div>
+              <div class="field full"><label>Username</label><input id="editUsername" value="${escapeHtml(user.username || '')}"></div>
+              <div class="field full"><label>Password baru</label><input id="editPassword" type="password" placeholder="Kosongkan jika tidak diganti"></div>
+              <div class="field"><label>Role</label><select id="editRole"><option value="user" ${user.role === 'user' ? 'selected' : ''}>user</option><option value="admin" ${user.role === 'admin' ? 'selected' : ''}>admin</option></select></div>
+              <div class="field"><label>Status</label><select id="editActive"><option value="true" ${user.active ? 'selected' : ''}>Aktif</option><option value="false" ${!user.active ? 'selected' : ''}>Nonaktif</option></select></div>
+            </div>
+            <div class="actions" style="margin-top:16px;">
+              <button id="editUserBtn" class="btn btn-primary" onclick="submitEditUser('${escapeHtml(user.id)}')">Simpan Perubahan</button>
+              <button class="btn btn-secondary" onclick="document.getElementById('editUserModal').remove()">Tutup</button>
+            </div>
+          </div>
+        </div>`);
+    }
+
+    async function submitEditUser(id) {
+      clearNotice('editUserNotice');
+      setButtonLoading('editUserBtn', true, 'Menyimpan...');
+      setNoticeLoading('editUserNotice', 'Menyimpan perubahan user...');
+      try {
+        const payload = {
+          id,
+          nama: document.getElementById('editNama').value,
+          email: document.getElementById('editEmail').value,
+          username: document.getElementById('editUsername').value,
+          password: document.getElementById('editPassword').value,
+          role: document.getElementById('editRole').value,
+          active: document.getElementById('editActive').value
+        };
+        const res = await server('adminUpdateUser', state.sessionToken, payload);
+        state.admin.users = res.users;
+        document.getElementById('editUserModal').remove();
+        renderApp();
+        showToast('success', 'User berhasil diperbarui.');
+      } catch (err) {
+        setNotice('error', err.message, 'editUserNotice');
+        showToast('error', err.message);
+      } finally {
+        setButtonLoading('editUserBtn', false);
+      }
+    }
+
+    async function handleDeleteUser(id) {
+      if (!(await appConfirm('Hapus user ini?', 'Hapus User'))) return;
+      try {
+        const res = await server('adminDeleteUser', state.sessionToken, id);
+        state.admin.users = res.users;
+        renderApp();
+        showToast('success', 'User berhasil dihapus.');
+      } catch (err) {
+        alertError(err);
+      }
+    }
+
+    function openEditFolder(folder) {
+      document.getElementById('folderEditId').value = folder.id || '';
+      setSelectValueOrAppend('folderKategori', folder.category || '');
+      toggleCustomCategory();
+      document.getElementById('folderNama').value = folder.folderName || '';
+      document.getElementById('folderParentDriveLink').value = folder.parentDriveLink || '';
+      document.getElementById('folderDriveLink').value = folder.driveLink || '';
+      document.getElementById('folderCreateInDrive').checked = false;
+      document.getElementById('folderActive').value = String(!!folder.active);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function resetFolderForm() {
+      ['folderEditId','folderNama','folderParentDriveLink','folderDriveLink'].forEach(id => { const el = document.getElementById(id); if (el) el.value = ''; });
+      const kategoriEl = document.getElementById('folderKategori');
+      if (kategoriEl) kategoriEl.selectedIndex = 0;
+      const manualEl = document.getElementById('folderKategoriManual');
+      if (manualEl) manualEl.value = '';
+      toggleCustomCategory();
+      const createEl = document.getElementById('folderCreateInDrive');
+      if (createEl) createEl.checked = false;
+      const activeEl = document.getElementById('folderActive');
+      if (activeEl) activeEl.value = 'true';
+      clearNotice('adminFolderNotice');
+    }
+
+    async function handleSaveFolder() {
+      clearNotice('adminFolderNotice');
+      setButtonLoading('saveFolderBtn', true, 'Menyimpan...');
+      setNoticeLoading('adminFolderNotice', 'Menyimpan folder...');
+      try {
+        const payload = {
+          id: document.getElementById('folderEditId').value,
+          kategori: getAdminFolderCategoryValue(),
+          namaFolder: document.getElementById('folderNama').value,
+          parentDriveLink: document.getElementById('folderParentDriveLink').value,
+          driveLink: document.getElementById('folderDriveLink').value,
+          createInDrive: document.getElementById('folderCreateInDrive').checked ? 'true' : 'false',
+          active: document.getElementById('folderActive').value
+        };
+        const res = await server('adminSaveFolder', state.sessionToken, payload);
+        state.admin.folders = res.folders;
+        await loadDashboard();
+        resetFolderForm();
+        renderApp();
+        showToast('success', 'Folder berhasil disimpan.');
+      } catch (err) {
+        setNotice('error', err.message, 'adminFolderNotice');
+        showToast('error', err.message);
+      } finally {
+        setButtonLoading('saveFolderBtn', false);
+      }
+    }
+
+    async function handleDeleteFolder(id) {
+      if (!(await appConfirm('Hapus folder ini?', 'Hapus Folder'))) return;
+      try {
+        const res = await server('adminDeleteFolder', state.sessionToken, id);
+        state.admin.folders = res.folders;
+        await loadDashboard();
+        renderApp();
+        showToast('success', 'Folder berhasil dihapus.');
+      } catch (err) {
+        alertError(err);
+      }
+    }
+
+    async function handleCreateFoldersFromSheet() {
+      if (!(await appConfirm('Buat folder/sub folder dari baris sheet Folders yang belum punya FolderId?', 'Buat Folder dari Sheet'))) return;
+      clearNotice('adminFolderNotice');
+      setButtonLoading('createFoldersBtn', true, 'Membuat...');
+      setNoticeLoading('adminFolderNotice', 'Membuat folder dari sheet...');
+      try {
+        const res = await server('adminCreateMissingDriveFoldersFromSheet', state.sessionToken);
+        state.admin.folders = res.folders;
+        await loadDashboard();
+        renderApp();
+        showToast('success', res.message || 'Folder berhasil dibuat dari sheet.');
+      } catch (err) {
+        setNotice('error', err.message, 'adminFolderNotice');
+        showToast('error', err.message);
+      } finally {
+        setButtonLoading('createFoldersBtn', false);
+      }
+    }
+
+    function alertError(err) {
+      showToast('error', err.message || 'Terjadi kesalahan.');
+    }
+    init();
+  </script>
+</body>
+</html>
