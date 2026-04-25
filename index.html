@@ -7,29 +7,93 @@
   <script src="./config.js"></script>
   <style>
     :root{--card:#151518;--card2:#1f1f24;--line:#34343a;--text:#f8fafc;--muted:#cbd5e1;--brand:#dc2626;--brand2:#7f1d1d;--gold:#f59e0b;--shadow:0 24px 70px rgba(0,0,0,.48)}
-    *{box-sizing:border-box}html,body{height:100%}body{margin:0;font-family:Arial,Helvetica,sans-serif;color:var(--text);background:radial-gradient(circle at 12% 8%,rgba(220,38,38,.20),transparent 30%),radial-gradient(circle at 88% 90%,rgba(245,158,11,.12),transparent 28%),linear-gradient(135deg,#050505,#111114 52%,#1b0b0b)}
-    .shell{min-height:100%;display:grid;grid-template-rows:auto 1fr}header{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:14px 18px;background:rgba(10,10,12,.86);border-bottom:1px solid rgba(255,255,255,.10);backdrop-filter:blur(12px);position:sticky;top:0;z-index:10}.brand{display:flex;align-items:center;gap:12px;min-width:0}.logo{width:44px;height:44px;object-fit:contain;background:#fff;border-radius:14px;padding:6px;flex:0 0 auto}.title{min-width:0}.title strong{display:block;font-size:16px;line-height:1.15;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.title span{display:block;color:#fecaca;font-size:12px;margin-top:3px}.actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:flex-end}button,a.btn{border:1px solid rgba(255,255,255,.14);background:var(--card2);color:var(--text);border-radius:12px;padding:10px 12px;font-weight:700;cursor:pointer;text-decoration:none;font-size:13px}.primary{background:linear-gradient(135deg,var(--brand),var(--brand2));border-color:rgba(255,255,255,.12)}.frame-wrap{padding:14px;min-height:0}.frame-card{height:calc(100vh - 86px);border-radius:22px;overflow:hidden;background:var(--card);border:1px solid rgba(255,255,255,.12);box-shadow:var(--shadow)}iframe{width:100%;height:100%;border:0;display:block;background:#111}.setup{min-height:calc(100vh - 86px);display:grid;place-items:center;padding:18px}.setup-card{width:min(720px,100%);background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.025)),var(--card);border:1px solid rgba(255,255,255,.12);border-radius:26px;box-shadow:var(--shadow);padding:24px}.ribbon{height:5px;border-radius:999px;background:linear-gradient(90deg,#030305,var(--brand),var(--gold));margin:14px 0 18px}h1{margin:0;font-size:24px}p,ol{color:var(--muted);line-height:1.6}code{color:#fde68a}input{width:100%;padding:13px 14px;border-radius:14px;border:1px solid #3f3f46;background:#0f0f12;color:var(--text);font-size:14px;margin:8px 0 12px}.hint{border:1px dashed rgba(56,189,248,.45);background:rgba(56,189,248,.12);color:#bae6fd;padding:12px 14px;border-radius:14px;font-size:13px;margin-top:14px}@media(max-width:700px){header{align-items:flex-start;flex-direction:column}.actions{width:100%}button,a.btn{flex:1;text-align:center}.frame-wrap{padding:8px}.frame-card{height:calc(100vh - 132px);border-radius:16px}}
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{margin:0;font-family:Arial,Helvetica,sans-serif;color:var(--text);background:radial-gradient(circle at 12% 8%,rgba(220,38,38,.20),transparent 30%),radial-gradient(circle at 88% 90%,rgba(245,158,11,.12),transparent 28%),linear-gradient(135deg,#050505,#111114 52%,#1b0b0b)}
+    .shell{min-height:100%;display:grid;grid-template-rows:auto 1fr}
+    header{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:14px 18px;background:rgba(10,10,12,.86);border-bottom:1px solid rgba(255,255,255,.10);backdrop-filter:blur(12px);position:sticky;top:0;z-index:10}
+    .brand{display:flex;align-items:center;gap:12px;min-width:0}
+    .logo{width:44px;height:44px;object-fit:contain;background:#fff;border-radius:14px;padding:6px;flex:0 0 auto}
+    .title{min-width:0}
+    .title strong{display:block;font-size:16px;line-height:1.15;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .title span{display:block;color:#fecaca;font-size:12px;margin-top:3px}
+    .actions{display:none}
+    .frame-wrap{padding:14px;min-height:0}
+    .frame-card{height:calc(100vh - 86px);border-radius:22px;overflow:hidden;background:var(--card);border:1px solid rgba(255,255,255,.12);box-shadow:var(--shadow)}
+    iframe{width:100%;height:100%;border:0;display:block;background:#111}
+    .setup{min-height:calc(100vh - 86px);display:grid;place-items:center;padding:18px}
+    .setup-card{width:min(720px,100%);background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.025)),var(--card);border:1px solid rgba(255,255,255,.12);border-radius:26px;box-shadow:var(--shadow);padding:24px}
+    .ribbon{height:5px;border-radius:999px;background:linear-gradient(90deg,#030305,var(--brand),var(--gold));margin:14px 0 18px}
+    h1{margin:0;font-size:24px}
+    p{color:var(--muted);line-height:1.6}
+    code{color:#fde68a}
+    @media(max-width:700px){header{align-items:flex-start;flex-direction:column}.frame-wrap{padding:8px}.frame-card{height:calc(100vh - 86px);border-radius:16px}}
   </style>
 </head>
 <body>
   <div class="shell">
     <header>
-      <div class="brand"><img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/4/46/KPU_Logo.svg" alt="Logo KPU"><div class="title"><strong id="appTitle">Sistem Upload Surat KPU</strong><span id="orgName">KPU Kabupaten Labuhanbatu Utara</span></div></div>
+      <div class="brand">
+        <img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/4/46/KPU_Logo.svg" alt="Logo KPU">
+        <div class="title">
+          <strong id="appTitle">Sistem Upload Surat KPU</strong>
+          <span id="orgName">KPU Kabupaten Labuhanbatu Utara</span>
+        </div>
+      </div>
       <div class="actions"></div>
     </header>
+
     <main id="main"></main>
   </div>
+
   <script>
-    const DEFAULT_URL=(window.TEKHUM_CONFIG&&window.TEKHUM_CONFIG.APP_SCRIPT_URL)||'';
-    document.getElementById('appTitle').textContent=(window.TEKHUM_CONFIG&&window.TEKHUM_CONFIG.APP_TITLE)||'Sistem Upload Surat KPU';
-    document.getElementById('orgName').textContent=(window.TEKHUM_CONFIG&&window.TEKHUM_CONFIG.ORG_NAME)||'KPU Kabupaten Labuhanbatu Utara';
-    function getAppUrl(){return localStorage.getItem('tekhum_apps_script_url')||DEFAULT_URL}
-    function isConfigured(url){return /^https:\/\/script\.google\.com\/macros\/s\/.+\/exec(\?.*)?$/.test(String(url||'').trim())}
-    function render(){const url=getAppUrl();const main=document.getElementById('main');const open=document.getElementById('openOriginal');if(isConfigured(url)){open.href=url;open.style.display='';main.innerHTML='<div class="frame-wrap"><div class="frame-card"><iframe id="appFrame" src="'+escapeAttr(url)+'" allow="clipboard-read; clipboard-write; fullscreen"></iframe></div></div>'}else{open.style.display='none';renderSetup()}}
-    function renderSetup(){document.getElementById('main').innerHTML='<div class="setup"><div class="setup-card"><h1>Setting tekhum.pages.dev</h1><div class="ribbon"></div><p>Masukkan URL deployment Google Apps Script Web App agar aplikasi tampil di domain Cloudflare Pages.</p><label>URL Web App Apps Script</label><input id="appUrlInput" placeholder="https://script.google.com/macros/s/AKfycb.../exec" value="'+escapeAttr(getAppUrl().startsWith('PASTE_')?'':getAppUrl())+'"><div class="actions"><button class="primary" onclick="saveUrl()">Simpan URL</button><button onclick="clearUrl()">Reset</button></div><div class="hint">Untuk permanen lewat GitHub, edit file <code>config.js</code> dan isi <code>APP_SCRIPT_URL</code> dengan URL <code>/exec</code> dari deployment Apps Script.</div><ol><li>Deploy Apps Script sebagai Web App.</li><li>Pastikan kode Apps Script memakai <code>setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL)</code>.</li><li>Upload folder ini ke GitHub.</li><li>Hubungkan repo ke Cloudflare Pages dengan project name <code>tekhum</code>.</li></ol></div></div>'}
-    function saveUrl(){const input=document.getElementById('appUrlInput');const url=input?input.value.trim():'';if(!isConfigured(url)){alert('URL harus berupa URL Web App Apps Script yang berakhiran /exec');return}localStorage.setItem('tekhum_apps_script_url',url);render()}
-    function clearUrl(){localStorage.removeItem('tekhum_apps_script_url');render()}
-    function openSetup(){renderSetup()}function reloadFrame(){const frame=document.getElementById('appFrame');if(frame)frame.src=frame.src;else render()}function escapeAttr(value){return String(value||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+    const DEFAULT_URL = (window.TEKHUM_CONFIG && window.TEKHUM_CONFIG.APP_SCRIPT_URL) || '';
+
+    document.getElementById('appTitle').textContent =
+      (window.TEKHUM_CONFIG && window.TEKHUM_CONFIG.APP_TITLE) || 'Sistem Upload Surat KPU';
+
+    document.getElementById('orgName').textContent =
+      (window.TEKHUM_CONFIG && window.TEKHUM_CONFIG.ORG_NAME) || 'KPU Kabupaten Labuhanbatu Utara';
+
+    function getAppUrl() {
+      return DEFAULT_URL;
+    }
+
+    function isConfigured(url) {
+      return /^https:\/\/script\.google\.com\/macros\/s\/.+\/exec(\?.*)?$/.test(String(url || '').trim());
+    }
+
+    function escapeAttr(value) {
+      return String(value || '')
+        .replace(/&/g, '&amp;')
+        .replace(/"/g, '&quot;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
+    }
+
+    function render() {
+      const url = getAppUrl();
+      const main = document.getElementById('main');
+
+      if (isConfigured(url)) {
+        main.innerHTML =
+          '<div class="frame-wrap">' +
+            '<div class="frame-card">' +
+              '<iframe id="appFrame" src="' + escapeAttr(url) + '" allow="clipboard-read; clipboard-write; fullscreen"></iframe>' +
+            '</div>' +
+          '</div>';
+      } else {
+        main.innerHTML =
+          '<div class="setup">' +
+            '<div class="setup-card">' +
+              '<h1>URL Apps Script belum diatur</h1>' +
+              '<div class="ribbon"></div>' +
+              '<p>Edit file <code>config.js</code>, lalu isi <code>APP_SCRIPT_URL</code> dengan link Web App Apps Script yang berakhiran <code>/exec</code>.</p>' +
+            '</div>' +
+          '</div>';
+      }
+    }
+
     render();
   </script>
 </body>
